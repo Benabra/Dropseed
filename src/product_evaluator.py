@@ -2,7 +2,9 @@
 from .ali_scraper import get_china_products
 from .amazon_scraper import count_amazon_listings, get_amazon_price_estimate
 from .google_trends import get_trend_score
-from .utils import normalize
+from .ml_model import ProductScoringModel
+
+model = ProductScoringModel()
 
 
 def score_product(p):
@@ -11,16 +13,12 @@ def score_product(p):
     amazon_price = get_amazon_price_estimate(p["name"])
     margin = amazon_price - p["china_price"]
 
-    orders_score = normalize(p["orders"], 0, 20000)
-    trend_score = normalize(trend, 0, 100)
-    comp_score = normalize(100 - competition, 0, 100)  # less is better
-    margin_score = normalize(margin, 0, 30)
 
-    final_score = (
-        orders_score * 0.25
-        + trend_score * 0.35
-        + comp_score * 0.25
-        + margin_score * 0.15
+    final_score = model.predict(
+        p["orders"],
+        margin,
+        trend,
+        competition,
     )
 
     p.update(
