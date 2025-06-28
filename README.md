@@ -7,12 +7,14 @@ dropseer/
 │   ├── amazon_scraper.py
 │   ├── google_trends.py
 │   ├── product_evaluator.py
+│   ├── ml_model.py
 │   ├── exporter.py
 │   └── utils.py
 
 ## Running the API
 
-Install the dependencies and start the FastAPI server:
+Install the dependencies and start the FastAPI server. The product score is now
+computed using a lightweight logistic regression model defined in `ml_model.py`:
 
 ```bash
 pip install -r requirements.txt
