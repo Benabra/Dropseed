@@ -19,6 +19,7 @@ def get_china_products(keyword, max_results=5):
         name_tag = item.select_one("a._3t7zg")
         price_tag = item.select_one("div._12A8D")
         order_tag = item.select_one("span._1kNf9")
+        image_tag = item.select_one("img")
 
         if not (name_tag and price_tag):
             continue
@@ -26,12 +27,14 @@ def get_china_products(keyword, max_results=5):
         name = name_tag.text.strip()
         price = float(price_tag.text.replace('$', '').split()[0])
         orders = int(order_tag.text.split()[0].replace(',', '')) if order_tag else 0
+        image_url = image_tag["src"] if image_tag and image_tag.get("src") else ""
 
         products.append({
             "name": name,
             "china_price": price,
             "orders": orders,
-            "rating": 4.5  # Placeholder
+            "image_url": image_url,
+            "rating": 4.5,  # Placeholder
         })
 
     return products
