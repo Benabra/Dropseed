@@ -1,8 +1,8 @@
 # src/product_evaluator.py
-from ali_scraper import get_china_products
-from amazon_scraper import count_amazon_listings, get_amazon_price_estimate
-from google_trends import get_trend_score
-from utils import normalize
+from .ali_scraper import get_china_products
+from .amazon_scraper import count_amazon_listings, get_amazon_price_estimate
+from .google_trends import get_trend_score
+from .utils import normalize
 
 
 def score_product(p):
